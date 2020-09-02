@@ -115,7 +115,7 @@
   <!-- NAVIGATION -->
   <!-- mapping node-->
    <node pkg="slam_toolbox" type="async_slam_toolbox_node" name="slam_toolbox" output="screen">
-    <rosparam command="load" file="$(find mowito_husky)/config/mapper_params_online_async.yaml" />
+    <rosparam command="load" file="$(find mowito_husky)/config/toolbox_config/mapper_params_online_async.yaml" />
   </node>
 
 
