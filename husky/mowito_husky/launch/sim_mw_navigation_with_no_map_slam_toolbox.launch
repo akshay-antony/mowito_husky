@@ -84,6 +84,7 @@
     <remap from="/odometry/filtered" to="/odom"/>
   </node>
 
+
   <node pkg="pointcloud_to_laserscan" type="pointcloud_to_laserscan_node" name="pointcloud_to_laserscan">
 
         <remap from="cloud_in" to="/velodyne_points"/>
@@ -115,8 +116,21 @@
   <!-- NAVIGATION -->
   <!-- mapping node-->
    <node pkg="slam_toolbox" type="async_slam_toolbox_node" name="slam_toolbox" output="screen">
-    <rosparam command="load" file="$(find mowito_husky)/config/toolbox_config/mapper_params_online_async.yaml" />
+    <rosparam command="load" file="$(find mowito_husky)/config/slam_toolbox_config/slam_toolbox_mapping.yaml" />
   </node>
+
+  <!-- nav server-->
+
+  <include file="$(find mowito_husky)/launch/secondary_launch/start_nav_server.launch">
+      <arg name="mission_executive_config" value="$(find mowito_husky)/config/mission_executive_config/mission_executive_params.yaml"/>
+      <arg name="respawn" value="$(arg respawn)"/>
+      <arg name="gp_debug" value="$(arg debug)"/>
+      <arg name="ctrl_debug" value="$(arg debug)"/>
+      <arg name="rcvr_debug" value="$(arg debug)"/>  
+      <arg name="use_velodyne" value="$(arg use_velodyne)"/> 
+      <arg name="ctrl_frequency" type="double" value="5"/>
+  </include>
+
 
 
 </launch>
